@@ -1,0 +1,27 @@
+body{
+    background-color: black;
+}
+
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+h1{
+    color:white;
+    text-align:center;
+}
+
+a{
+    font-size: 20px;
+    text-align: center;
+}
+
+#content{
+    color: red;
+}
+
+#login-content{
+	color: white;
+}

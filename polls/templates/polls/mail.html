@@ -1,0 +1,14 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<h1 class="page-header">Napisz e-mail</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table>
+        {% for form in formset %}
+             {{ form.name }} {{ form }} <br/><br/>
+        {% endfor %}
+    </table>
+    <input class="btn btn-primary" type="submit" value="Wyślij" />
+</form>
+{% endblock content %}

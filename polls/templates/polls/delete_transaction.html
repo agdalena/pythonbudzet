@@ -1,0 +1,9 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<h1 class="page-header">Usuwanie</h1>
+<form method="post">
+    {% csrf_token %}
+    Jesteś pewny, że chcesz to usunąć "{{ transaction }}" ?
+    <input class="btn btn-danger" type="submit" value="Submit" />
+</form>
+{% endblock content %}

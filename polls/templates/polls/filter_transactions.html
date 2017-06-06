@@ -1,0 +1,42 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<div class="panel panel-default">
+                        <div class="panel-heading">
+                            Wyniki wyszukiwania
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa</th>
+                                            <th>Data</th>
+                                            <th>Wartość</th>
+                                            <th>Użytkownik</th>
+
+                                        </tr>
+                                    </thead>
+                {% for t in transactions %} 
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ t.title }}</td>
+                                            <td>{{ t.date }} </td>
+                                            <td>{{ t.value }}</td>
+                                            <td> {{ t.user }}, ID:{{ t.user.id }} </td>
+                                            <td><a href="/edit_transaction/{{t.id}}">Edytuj</a> <a href="/delete_transaction/{{t.id}}">Usuń</a> </td>
+                                        </tr>
+                                    </tbody>
+                   {% endfor %}
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+
+
+  <a href="{% url 'all_transactions' %}">Powrót</a>
+{% endblock content %}
+	

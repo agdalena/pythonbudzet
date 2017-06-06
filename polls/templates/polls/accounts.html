@@ -1,0 +1,7 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<h1 class="page-header">Konta</h1>
+    {% for t in accounts %}  
+        <p>{{ t.username }}</p>  
+    {% endfor %}
+{% endblock content %}
