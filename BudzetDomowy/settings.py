@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/transactions'
+LOGOUT_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
 # Application definition
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,8 @@ EMAIL_HOST_USER = 'tojestoficjalnyemail@gmail.com'
 EMAIL_HOST_PASSWORD = 'cibnvwjfelwbnrpj'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+RECAPTCHA_PUBLIC_KEY = '6Ld-bSQUAAAAAAN6V0Scvb_A2rc3EnKrST-SNVbi'
+RECAPTCHA_PRIVATE_KEY = '6Ld-bSQUAAAAAHogVuNO06mW3diryECGsi7RKnnI'
+NOCAPTCHA = True
+# RECAPTCHA_PROXY = 'http://127.0.0.1:8000'

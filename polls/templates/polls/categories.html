@@ -1,8 +1,32 @@
 {% extends 'polls/base.html' %}
 {% block content %}
 <h1 class="page-header">Kategorie</h1>
-    {% for x in categories %}  
-        <p> {{ x.category_name }} </p>  
-    {% endfor %}
+     	<div class="panel panel-default">
+                        <div class="panel-heading">
+                            Dostępne kategorie
+                        </div>
+                         <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa</th>
+                                        </tr>
+                                    </thead>
+                {% for c in categories %} 
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ c.category_name }}</td>
+                                            <td><a class="btn btn-success" href="/edit_category/{{c.id}}">Edytuj</a> <a class="btn btn-success" href="/delete_category/{{c.id}}">Usuń</a> </td>
+                                        </tr>
+                                    </tbody>
+                   {% endfor %}
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                        <a class="btn btn-warning" href="{% url 'add_category' %}">Dodaj kategorię</a> 
 {% endblock content %}
 	

@@ -26,21 +26,23 @@
                                             <th>Nazwa</th>
                                             <th>Data</th>
                                             <th>Wartość</th>
+                                            <th>Kategoria</th>
                                             <th>Użytkownik</th>
 
                                         </tr>
                                     </thead>
-                {% for t in transactions %} 
+                                     {% for t in transactions %} 
                                     <tbody>
                                         <tr>
                                             <td>{{ t.title }}</td>
                                             <td>{{ t.date }} </td>
                                             <td>{{ t.value }}</td>
+                                            <td>{{ t.category }}</td>
                                             <td> {{ t.user }}, ID:{{ t.user.id }} </td>
-                                            <td><a href="/edit_transaction/{{t.id}}">Edytuj</a> <a href="/delete_transaction/{{t.id}}">Usuń</a> </td>
+                                            <td><a class="btn btn-success" href="/edit_transaction/{{t.id}}">Edytuj</a> <a class="btn btn-success" href="/delete_transaction/{{t.id}}">Usuń</a> </td>
                                         </tr>
                                     </tbody>
-                   {% endfor %}
+                                    {% endfor %}
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
@@ -50,6 +52,119 @@
           <a class="btn btn-warning" href="{% url 'add_transaction' %}">Dodaj transakcje</a> 
  
     		<h1>Saldo {{suma}}</h1>
+
+
+  <div class"row">
+
+    <div class="col-sm-6 text-center">
+       <label class="label label-success">Transakcje</label>
+      <div id="stacked" ></div>
+    </div>
+
+    <div class="col-sm-6 text-center">
+       <label class="label label-success">Roczne zestawienie</label>
+      <div id="line-chart"></div>
+    </div>
+
+    <div class="col-sm-6 text-center">
+       <label class="label label-success">Przychody</label>
+      <div id="plus-chart" ></div>
+    </div>
+
+    <div class="col-sm-6 text-center">
+       <label class="label label-success">Wydatki</label>
+      <div id="minus-chart" ></div>
+      
+    </div>
+    
+  </div>
+<script>
+
+    var data = [
+    {% for t in transactions %} 
+        {% if t.value > "0" %}
+            {y: '{{t.date|date:"Y"}}', a: {{t.value}}, b: 0},    
+        {% endif %}
+        {% if t.value < "0" %}
+            {y: '{{t.date|date:"Y"}}', a: 0, b: {{t.value}} },    
+        {% endif %}
+    {% endfor %}
+    ];
+
+    var dataToBar = [
+    {% for t in transactions %} 
+        {% if t.value > "0" %}
+            {y: '{{t.date}}', a: {{t.value}}, b: 0},    
+        {% endif %}
+        {% if t.value < "0" %}
+            {y: '{{t.date}}', a: 0, b: {{t.value}} },    
+        {% endif %}
+    {% endfor %}
+    ];
+
+    config = {
+      data: data,
+      xkey: 'y',
+      ykeys: ['a', 'b'],
+      labels: ['Total Income', 'Total Outcome'],
+      fillOpacity: 0.6,
+      hideHover: 'auto',
+      behaveLikeLine: true,
+      resize: true,
+      pointFillColors:['#ffffff'],
+      pointStrokeColors: ['black'],
+      lineColors:['gray','red']
+  };
+
+    config2 = {
+      data: dataToBar,
+      xkey: 'y',
+      ykeys: ['a', 'b'],
+      labels: ['Total Income', 'Total Outcome'],
+      fillOpacity: 0.6,
+      hideHover: 'auto',
+      behaveLikeLine: true,
+      resize: true,
+      pointFillColors:['#ffffff'],
+      pointStrokeColors: ['black'],
+      lineColors:['gray','red']
+  };
+
+config.element = 'line-chart';
+Morris.Line(config);
+config2.element = 'stacked';
+config.stacked = true;
+Morris.Bar(config2);
+
+
+
+
+Morris.Donut({
+  element: 'plus-chart',
+  data: [
+      {% for t in transactions %}
+          {% if t.value > "0" %}
+             {label: '{{t.title}}', value: '{{t.value}}'},
+          {% endif %}
+      {% endfor %}
+  ]
+});
+
+
+Morris.Donut({
+  element: 'minus-chart',
+  data: [
+      {% for t in transactions %}
+          {% if t.value < "0" %}
+             {label: '{{t.title}}', value: '{{t.value}}'},
+          {% endif %}
+      {% endfor %}
+  ]
+});
+
+</script>
+        
+
 {% endblock content %}
 	
 

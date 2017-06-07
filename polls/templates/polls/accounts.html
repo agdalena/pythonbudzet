@@ -1,7 +1,35 @@
 {% extends 'polls/base.html' %}
 {% block content %}
 <h1 class="page-header">Konta</h1>
-    {% for t in accounts %}  
-        <p>{{ t.username }}</p>  
-    {% endfor %}
-{% endblock content %}
+
+
+
+<div class="panel panel-default">
+                        <div class="panel-heading">
+                            Konta
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nazwa użytkownika</th>
+                                        </tr>
+                                    </thead>
+                                    {% for a in accounts %}  
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ a.username }}</td>
+                                            <td><a class="btn btn-success" href="/account_detail/{{a.id}}">Info</a>  </td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+                    {% endblock content %}
